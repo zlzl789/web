@@ -1,0 +1,14 @@
+<form action="{% url 'test1' %}" method="POST">
+<p class="but">
+{% csrf_token %}
+{{ form }}
+<button type="submit">Search</button>
+</p>
+</form>
+
+
+{% for p in posts %}
+<p>
+    {{p.site}}
+</p>
+{% endfor %}
