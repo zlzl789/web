@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<title>Django Girls blog</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+<div class="btt">
+<a class="btn btn-primary" href="{% url 'urls' %}">url로 찾기</a>
+<a class="btn btn-primary" href="{% url 'key' %}">키워드로 찾기</a>
+</div>
+</body>
+</html>

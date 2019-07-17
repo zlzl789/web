@@ -3,8 +3,10 @@ from . import views
 
 
 urlpatterns = [
-
-    path('test1/',views.test1, name='test1'),
+    path('index', views.index, name='index'),
+    path('urls',views.urls, name='urls'),
+    path('key',views.key, name='key'),
+    path('d_key', views.d_key, name='d_key'),
 ]
 
 

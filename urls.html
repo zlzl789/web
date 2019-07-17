@@ -1,0 +1,64 @@
+{% load static %}
+<html>
+    <head>
+        <title>Django Girls blog</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    </head>
+    <body>
+
+
+    <div id="url_form">
+    <div class="form_main">
+    <form action="{% url 'urls' %}" method="POST">
+    <div class="but">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Search</button>
+    </div>
+    </form>
+    </div>
+
+
+    <div id="form">
+    <a href=" {{url}}" >{{url}}</a>
+
+<table class="teb">
+    <thead class="tt">
+    <tr>
+         {% if posts %}
+        <th>URL</th>
+         {% endif %}
+
+         {% for p in posts %}
+        <th>
+            {{p.site}}
+        </th>
+         {% endfor %}
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        {% if posts %}
+        <td style="padding: 7px;font-size: 11px;width: 215px;">
+        {{url}}</td>
+        {% endif %}
+
+        {% for p in posts %}
+        <td>
+            <i class="material-icons">done</i>
+        </td>
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
+    </div>
+    </div>
+
+
+
+    </body>
+</html>
