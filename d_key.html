@@ -12,53 +12,64 @@
 
 <div id="url_form">
 
-    <div class="form_main">
-    <form action="{% url 'd_key' %}" method="POST">
-    <div class="but">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Search</button>
-    </div>
-    </form>
-    </div>
+<div class="form_main">
+<form action="{% url 'd_key' %}" method="POST">
+<div class="but">
+{% csrf_token %}
+{{ form }}
+<button type="submit">Search</button>
+</div>
+</form>
+</div>
 
 
 
 
 
 {% if post %}
-<table class="teb">
- <thead class="tt">
-    <tr>
-        <th>URL</th>
-        <th>광고집행기간</th>
-        <th>스크립트</th>
-    </tr>
-    </thead>
+{% for i in post %}
+    <div id ="main">
+<div class="main_1">
+  <div class="img">
+    {% if i.iimg != "None" %}
+<img class="iimg" src="{{i.iimg}}">
+    {% endif %}
+</div>
+
+<div class="i_url"><a href=" {{i.url}}">{{i.site}}</a></div>
+</div>
+
+<table class="teb_2">
+<thead class="tt">
+<tr>
+<th>스크립트</th></tr></thead>
 
 <tbody>
-
-{% for i in post %}
-<tr class="ti">
-<td class="name"><a href=" {{i.url}}" >{{i.site}}</a></td>
-
-<td class="k">
-{{ i.te }}
-</td>
-
 <td class="title">
-{% for i2 in i.title %}
-<div>{{ i2 }}</div>
+{% for e2 in i.title %}
+{{ e2 }}
 {% endfor %}
 </td>
-
-
-
-{% endfor %}
-{% endif %}
-</tr>
 </tbody>
 </table>
+
+
+{% for i3 in i.si %}
+<a class="i3_url" href="{{i3.url}}">{{ i3.tt }}</a>
+{% endfor %}
+<p>{{ i.mid_text }}</p>
+
+{% for i2 in i.st %}
+<a class="a_2" href="{{i2.url}}">{{ i2.tt }}</a>
+{% endfor %}
+
+<div class="info">
+ <a class="a_3" href="{{i.info_url}}">{{ i.info_text }}</a></div>
+</div>
+{% endfor %}
+{% endif %}
+
+
 
 </div>
 </body>

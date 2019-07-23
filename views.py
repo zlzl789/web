@@ -65,8 +65,8 @@ def key(request):  # key 라는 함수(그룹) 만들겠다고 def로 선언했�
 
 
         for n in range(1, 100):  # url페이지 수 100번 돌리기 포문
-
             u_url = uurl.format(n)  # url페이지 수 뒤로 n번만큼(100) 돌려라
+            print(u_url)
             reqe = requests.get(u_url, headers=headers).text  # 키워드넣은 값의 url을 갖고왔다
             soup = BeautifulSoup(reqe, 'html.parser', from_encoding='utf-8')  # url을 뷰티풀소프로 컴퓨터가 읽을수있는 html파일로 쪄버리기
             titles_by_select = soup.select('ol.lst_type > li') # a태그 선택하여 titles_by_select안에 담아요
@@ -98,74 +98,77 @@ def key(request):  # key 라는 함수(그룹) 만들겠다고 def로 선언했�
 
                 url_r = titl.find('a', {'class': 'url'})
                 f_url = url_r.get('href')
-                f_req = requests.get(f_url).text
-                s_url = url_r.text # 화면의 나오는 url
+
+                try:
+                    f_req = requests.get(f_url, headers=headers).text
+                    s_url = url_r.text # 화면의 나오는 url
 
 
 
-                p_title = titl.find_all('p', 'ad_dsc')
-                if  p_title:
-                    p_text = p_title[0].text
-                else:
-                    p_text= ""
-
-                p_title2 = titl.find('em',{'class':'point'})
-                if  p_title2:
-                    ret = titl.find_all('p', 'promotion')
                     p_title = titl.find_all('p', 'ad_dsc')
-                    p_text = p_title[1].text
-                    p_text2 = ret[0].text
+                    if  p_title:
+                        p_text = p_title[0].text
+                    else:
+                        p_text= ""
 
-                else:
-                    p_text2 = ""
+                    p_title2 = titl.find('em',{'class':'point'})
+                    if  p_title2:
+                        ret = titl.find_all('p', 'promotion')
+                        p_title = titl.find_all('p', 'ad_dsc')
+                        p_text = p_title[1].text
+                        p_text2 = ret[0].text
 
-
-                po = []
-                item = titl.find('ul',{'class':'lst_link'})
-                if item:
-                    re = item.find_all('a','link')
-                    for i1 in re:
-                        re1 = i1.text
-                        re11 = i1.get('href')
-
-                        du = {'url':re11,'tit':re1}
-                        po.append(du)
-                else:
-                    po = ""
+                    else:
+                        p_text2 = ""
 
 
+                    po = []
+                    item = titl.find('ul',{'class':'lst_link'})
+                    if item:
+                        re = item.find_all('a','link')
+                        for i1 in re:
+                            re1 = i1.text
+                            re11 = i1.get('href')
 
-                pi = []
-                item2 = titl.find('ul',{'class':'lst_price'})
-                if item2:
-                    re2 = item2.find_all('a','link')
-                    for i2 in re2:
-                        re2 = i2.text
-                        ree = i2.get('href')
-
-                        d = {'url_1':ree,'tit_1':re2}
-                        pi.append(d)
-                else:
-                    pi = ""
+                            du = {'url':re11,'tit':re1}
+                            po.append(du)
+                    else:
+                        po = ""
 
 
 
-                il = titl.find_all('em','txt')
-                ir = il[0].text #광고집행기간
+                    pi = []
+                    item2 = titl.find('ul',{'class':'lst_price'})
+                    if item2:
+                        re2 = item2.find_all('a','link')
+                        for i2 in re2:
+                            re2 = i2.text
+                            ree = i2.get('href')
 
-                cur = connection.cursor()
-                string = "select * from topic"
-                cur.execute(string)
-                see = cur.fetchall()
+                            d = {'url_1':ree,'tit_1':re2}
+                            pi.append(d)
+                    else:
+                        pi = ""
 
-                post1 = []
-                for t in see:  # 데이터베이스와 url 비교하는구문
-                    if t[2] in f_req:
-                        di = t[1]
-                        post1.append(di)
 
-                    dd = {'img':iimg,'site': te, 'site2':te2 ,'f_url':f_url , 'te':ir, 'p':p_text,'p_text2':p_text2, 'title': post1, 'link_k':link_r,'link2_r':link2_r,'s_url':s_url,'po':po,'pi':pi}
 
+                    il = titl.find_all('em','txt')
+                    ir = il[0].text #광고집행기간
+
+                    cur = connection.cursor()
+                    string = "select * from topic"
+                    cur.execute(string)
+                    see = cur.fetchall()
+
+                    post1 = []
+                    for t in see:  # 데이터베이스와 url 비교하는구문
+                        if t[2] in f_req:
+                            di = t[1]
+                            post1.append(di)
+
+                        dd = {'img':iimg,'site': te, 'site2':te2 ,'f_url':f_url , 'te':ir, 'p':p_text,'p_text2':p_text2, 'title': post1, 'link_k':link_r,'link2_r':link2_r,'s_url':s_url,'po':po,'pi':pi}
+                except:
+                    pass
 
 
                 post.append(dd)
@@ -180,6 +183,9 @@ def key(request):  # key 라는 함수(그룹) 만들겠다고 def로 선언했�
     else:  # 얘는 if request.method == 'POST': 얘랑 짝꿍이라 if request.method == 'POST':쟤 줄에 같이있어야한다
         forms = Key()
         return render(request, 'hello_app/key.html', {'form': forms, })  # 템플릿 파일 경로 지정, 데이터 전달
+
+
+
 
 
 
@@ -207,18 +213,73 @@ def d_key(request):
             result = round(gr+1)
 
         for n in range(1,result):  # url페이지 수 100번 돌리기 포문
-            print(n)
 
             u_url = uurl.format(n)  # url페이지 수 뒤로 n번만큼(100) 돌려라
             reqe = requests.get(u_url, headers=headers)  # 키워드넣은 값의 url을 갖고왔다
 
             html2 = reqe.text
             soup2 = BeautifulSoup(html2, 'html.parser')
-            titles_by_select = soup2.select(' div.coll_cont > div > ul > li > div > div > div.wrap_tit.mg_tit > a')  # a태그 선택하여 titles_by_select안에 담아요
+            titles_by_select = soup2.select(' div.coll_cont > div.mg_cont > ul.list_info > li')  # a태그 선택하여 titles_by_select안에 담아요
+
 
             for titl in titles_by_select:  # titles_by_select안에 titl가 있는동안 도라라
-                te = titl.text  # te안에 titl을 텍스트인것들(쇼핑몰 이름)을 담아라! 잘 담김=프린트해봄
-                f_url = titl.get('href')  # f_url안에 쇼핑몰의 주소를 담아라~ 프린트해봄!
+                link = titl.find('a',{'class':'f_link_bu'})
+                te = link.text #이름
+                f_url = link.get('href') #주소
+
+
+                si = []
+                link_2 = titl.find_all('a','f_link')
+                if link_2:
+                    for i in link_2:
+                        te_2 = i.text #이름
+                        te_url = i.get('href') #주소
+                        ei = {'url':te_url,'tt':te_2}
+                        si.append(ei)
+                else:
+                    si=""
+
+                mid = titl.find('p',{'class':'desc'})
+                if mid:
+                    mid_text = mid.text
+
+                else:
+                    mid_text = ""
+
+
+
+                info = titl.find('a',{'class':'f_url'})
+                if info:
+                    info_text = info.text
+                    info_url = info.get('href')
+
+                else:
+                    info_text = ""
+                    info_url = ""
+
+
+
+                st = []
+                link_3 = titl.find_all('a','link_etc')
+
+                if link_3:
+                    for i in link_3:
+
+                        te_3 = i.text #이름
+                        te_url3 = i.get('href') #주소
+                        ei3 = {'url':te_url3,'tt':te_3}
+                        st.append(ei3)
+                else:
+                    st=""
+
+
+                img = titl.find('img',{'class':'thumb_img'})
+                if  img:
+                    iimg = img.get('src')#이미지가 있을 시 src뒤로붙은 주소가져오기
+                else:
+                    iimg = "None"
+
+
 
                 try:
                     f_req = requests.get(f_url, headers=headers).text  #
@@ -230,9 +291,9 @@ def d_key(request):
                     for t in see:  # 데이터베이스와 url 비교하는구문
                         if t[2] in f_req:
                             di = t[1]
-                            post1.append(di)
+                            post1.append(di) #
 
-                        dd = {'site': te, 'title': post1, 'url': f_url}
+                        dd = {'site': te, 'title': post1, 'url': f_url,'si':si,'mid_text':mid_text,'st':st,'info_text':info_text,'info_url':info_url,'iimg':iimg}
                 except:
                     pass
 

@@ -126,7 +126,7 @@ font-size:11px;
 .area{
 font-size:12px;
     border-bottom: 1px solid #ccc;
-    width: 780px;
+    width: 980px;
     padding: 10px 0;
 }
 
@@ -139,4 +139,28 @@ font-size:12px;
 }
 .text_1{
     margin-top: 10px;
+}
+
+
+.i_url{
+    font-size: 17px;
+    text-decoration: underline;
+    float: left;
+    width: 540px;
+     margin-top: 20px;
+}
+
+.a_1{
+font-size:12px;}
+
+.a_3{
+color:#4caf50;
+}
+
+.info{
+    margin-bottom: 25px;
+}
+
+.main_1{
+    width: 50%;
 }
