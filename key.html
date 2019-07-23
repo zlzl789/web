@@ -1,65 +1,109 @@
 {% load static %}
 <html>
-    <head>
-        <title>Django Girls blog</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    </head>
-    <body>
-
-
-<div id="url_form">
-
-    <div class="form_main">
-    <form action="{% url 'key' %}" method="POST">
-    <div class="but">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Search</button>
-    </div>
-    </form>
-    </div>
+<head>
+<title>Django Girls blog</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
 
 
 
+<div class="form_main">
+<form action="{% url 'key' %}" method="POST">
+<div class="but">
+{% csrf_token %}
+{{ form }}
+<button type="submit">Search</button>
+</div>
+</form>
+</div>
 
 
+<div id = "main">
 {% if post %}
-<table class="teb">
- <thead class="tt">
-    <tr>
-        <th>URL</th>
-        <th>광고집행기간</th>
-        <th>스크립트</th>
-    </tr>
-    </thead>
+{% for i in post %}
+
+<div class="cantain">
+<div class="img">
+    {% if i.img != "None" %}
+<img class="1img" src="{{i.img}}">
+    {% endif %}
+</div>
+
+
+<div class="inner">
+<a href="{{i.link_k}}">{{i.site}}</a>
+<a href="{{i.link2_r}}">{{i.site2}}</a>
+</div>
+
+
+<table class="teb_2">
+<thead class="tt">
+<tr>
+    <th>스크립트</th></tr></thead>
 
 <tbody>
-
-{% for i in post %}
-<tr class="ti">
-<td class="name"><a href=" {{i.url}}" >{{i.site}}</a></td>
-
-<td class="k">
-{{ i.te }}
-</td>
-
 <td class="title">
-{% for i2 in i.title %}
-<p class="list"> {{ i2 }} </p>
+{% for e2 in i.title %}
+{{ e2 }}
 {% endfor %}
 </td>
+</tbody>
+</table>
 
+<div class="i_2">
+<a href="{{i.f_url}}">{{i.s_url}}</a>
+</div>
+
+<p>{{i.p}}</p>
+<p class="pot">{{i.p_text2}}</p>
+
+
+<div class="te">
+{% for i1 in i.po %}
+<a href="{{i1.url}}">{{i1.tit}}</a>
+{% endfor %}
+</div>
+
+
+
+<div class="text_1">
+ <ul class="ti_1">
+{% for i3 in i.pi %}
+<p><a class="{{i3.url_1}}" href="">{{ i3.tit_1 }}</a></p>
+{% endfor %}
+</ul>
+
+<ul class="ti_2">
+{% for i4 in i.pi2 %}
+<p><a class="text_2">{{ i4 }}</a></p>
+{% endfor %}
+</ul>
+</div>
+
+
+<div class="i_3">
+<p>{{i.ling2}}</p>
+</div>
+
+<div class="area">
+<span class="tit">광고집행기간 :</span>
+<em>{{i.te}}</em>
+</div>
+
+
+
+</div>
 
 
 {% endfor %}
 {% endif %}
-</tr>
-</tbody>
-</table>
-
 </div>
+
+
+
 </body>
 </html>

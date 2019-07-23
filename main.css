@@ -7,10 +7,11 @@ p{
 }
 
 td, th {
-    padding: 3px;
+padding: 10px;
     text-align: center;
-    font-size: 13px;
+    font-size: 11px;
     border: 1px solid #ccc;
+    height: 28px;
 }
 
 th {
@@ -68,3 +69,74 @@ input{
     line-height: 2;
     text-align: left;
     padding: 0 0px 0px 18px;}
+
+
+img {
+    width: 60px;
+    height: 60px;
+}
+
+.i_ul {
+padding: 0px 0px 20px 10px;
+width: 100%;
+}
+
+.img{
+  float: left;
+  margin-right: 10px;
+}
+
+.ti_1{
+width: 100%;
+padding: 0;
+float: right;}
+
+.ti_2{
+    width: 7%;
+    padding: 0;}
+
+.sc{
+color: #f00;
+}
+
+.teb_2{
+    border: 1px solid #ccc;
+    width: 20%;
+    float: none;}
+
+ .inner{
+    float: left;
+    width: 600px;
+    margin-top: 20px;
+    text-decoration: underline;
+    font-weight: bold;
+ }
+
+
+
+.pot{
+font-size:11px;
+}
+
+.cantain{
+    margin-bottom: 10px;
+
+}
+
+.area{
+font-size:12px;
+    border-bottom: 1px solid #ccc;
+    width: 780px;
+    padding: 10px 0;
+}
+
+.text_1 a{
+    color: #607d8b;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: bold;
+
+}
+.text_1{
+    margin-top: 10px;
+}
