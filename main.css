@@ -105,8 +105,7 @@ color: #f00;
     float: none;}
 
  .inner{
-    float: left;
-    width: 600px;
+
     margin-top: 20px;
     text-decoration: underline;
     font-weight: bold;
@@ -145,8 +144,6 @@ font-size:12px;
 .i_url{
     font-size: 17px;
     text-decoration: underline;
-    float: left;
-    width: 540px;
      margin-top: 20px;
 }
 
@@ -162,5 +159,11 @@ color:#4caf50;
 }
 
 .main_1{
-    width: 50%;
+    width: 30%;
+    float: left;
+}
+
+.can{
+width: 665px;
+    float: left;
 }

@@ -64,7 +64,7 @@ def key(request):  # key 라는 함수(그룹) 만들겠다고 def로 선언했�
         uurl = url + '&pagingIndex={}'  # 페이지 수
 
 
-        for n in range(1, 100):  # url페이지 수 100번 돌리기 포문
+        for n in range(1, 20):  # url페이지 수 100번 돌리기 포문
             u_url = uurl.format(n)  # url페이지 수 뒤로 n번만큼(100) 돌려라
             print(u_url)
             reqe = requests.get(u_url, headers=headers).text  # 키워드넣은 값의 url을 갖고왔다
